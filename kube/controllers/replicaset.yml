@@ -1,0 +1,24 @@
+kind: ReplicaSet
+apiVersion: apps/v1
+metadata:  ##this is the metadata of replicaset controller
+   name: rs1
+   namespace: default
+   #labels: ##optional
+spec:  ## this is the spec of the replicaset controller,which is pod inside
+   replicas: 3
+   selector:
+      matchLabels:  ##tells the controller that u r reponsible only for the pods with labels role: app 
+        role: app
+   template: # describe the pod metadata and spec
+      metadata: ##pod metadata
+        #name:  ##every replaca of pod cant have same name, so kubernetes will give random name to keep it unique
+        ## namespace not required as replicaset has
+        labels: 
+          role: app
+      spec: ##pod spec,which is containers
+        containers:
+          - name: cont1
+            image: nginx
+            ports:
+              - name: http
+                containerPort: 80
