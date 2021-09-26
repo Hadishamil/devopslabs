@@ -1,0 +1,21 @@
+kind: Pod ##kubectl api version
+apiVersion: v1 
+metadata: 
+    name: hadipod ##podname
+    namespace: default
+    labels:   ##writing a label to a pod is mandatory -- label helps us to identify group of pods
+      team: dev  ##here both key and value are your choice
+spec:
+  containers:
+    - name: cont1
+      image: nginx 
+      ports: ##define the port values inside the container
+        - name: http
+          containerPort: 80 
+    - name: cont2
+      image: tomcat
+      ports:
+        - name: http
+          containerPort: 8080
+    - name: cont3
+      image: ubuntu
