@@ -1,0 +1,23 @@
+kind: DaemonSet ##creates 1 pod per worker nodes,enures only pod per node,it automatically scale up/down when a node is added/removed form cluster.eg: monitoring agent,anti virus
+apiVersion: apps/v1
+metadata:  ##this is the metadata of daemonset controller
+   name: ds1
+   namespace: default
+   #labels: ##optional
+spec:  ## this is the spec of the daemonset controller,which is pod inside
+   selector:
+      matchLabels:  ##tells the controller that u r reponsible only for the pods with labels role: app 
+        role: av
+   template: # describe the pod metadata and spec
+      metadata: ##pod metadata
+        #name:  ##every replaca of pod cant have same name, so kubernetes will give random name to keep it unique
+        ## namespace not required as replicaset has
+        labels: 
+          role: av
+      spec: ##pod spec,which is containers
+        containers:
+          - name: cont1
+            image: httpd
+            ports:
+              - name: http
+                containerPort: 80
